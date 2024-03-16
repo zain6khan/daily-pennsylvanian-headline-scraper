@@ -26,7 +26,7 @@ def scrape_data_point():
 
     if req.ok:
         soup = bs4.BeautifulSoup(req.text, "html.parser")
-        most_read_item = soup.find(class_="most-read-item")
+        most_read_item = soup.find(div, class_="most-read-item")
         if most_read_item:
             most_read_article = most_read_item.find_next("a", class_="frontpage-link standard-link")
             if most_read_article:
