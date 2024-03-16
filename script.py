@@ -29,7 +29,7 @@ def scrape_data_point():
         most_read_item = soup.find(id="mostRead")
         loguru.logger.info(f"Most_read_item: {most_read_item}")
         if most_read_item:
-            most_read_article = most_read_item.find_next("a")
+            most_read_article = most_read_item.find("a")
             if most_read_article:
                 data_point = most_read_article.text
                 loguru.logger.info(f"Data point: {data_point}")
