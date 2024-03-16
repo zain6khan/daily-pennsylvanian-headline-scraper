@@ -26,10 +26,10 @@ def scrape_data_point():
 
     if req.ok:
         soup = bs4.BeautifulSoup(req.text, "html.parser")
-        most_read_item = soup.find(id="mostRead")
+        most_read_item = soup.find("div", class_="most-read-item")
         loguru.logger.info(f"Most_read_item: {most_read_item}")
         if most_read_item:
-            most_read_article = most_read_item.find_next("a")
+            most_read_article = most_read_item.find("a", class_="frontpage-link standard-link")
             if most_read_article:
                 data_point = most_read_article.text
                 loguru.logger.info(f"Data point: {data_point}")
@@ -38,7 +38,7 @@ def scrape_data_point():
             else:
                 loguru.logger.warning("Most read article not found")
         else:
-            loguru.logger.warning("Most read article not found or no most read articles available")
+            loguru.logger.warning("Most read item not found or no most read articles available")
     else:
         loguru.logger.warning(f"Failed to retrieve webpage, status code: {req.status_code}")
     return ""
