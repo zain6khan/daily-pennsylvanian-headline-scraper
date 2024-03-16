@@ -26,14 +26,14 @@ def scrape_data_point():
 
     if req.ok:
         soup = bs4.BeautifulSoup(req.text, "html.parser")
-        most_read_span = soup.find("span", id="mostRead")
-        if most_read_span:
-            target_element = most_read_span.find("div", class_="most-read-item").find("a")
-            if target_element:
-                data_point = target_element.text.strip()
+        most_read_list = soup.find_all("div", class_="ranked-list-item")
+        if most_read_list and len(most_read_list) > 0:
+            top_article = most_read_list[0].find("a") # Assuming the top article is the first in the list
+            if top_article:
+                data_point = top_article.text.strip()
                 loguru.logger.info(f"Data point: {data_point}")
                 return data_point
-        loguru.logger.warning("Most read span not found or no most read articles available")
+        loguru.logger.warning("Most read list not found or no most read articles available")
     return ""
 
 
