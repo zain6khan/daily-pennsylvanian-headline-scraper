@@ -26,9 +26,9 @@ def scrape_data_point():
 
     if req.ok:
         soup = bs4.BeautifulSoup(req.text, "html.parser")
-        most_read_item = soup.find(class_="most-read-item")
+        most_read_item = soup.find(id="mostRead")
         if most_read_item:
-            most_read_article = most_read_item.find_next("a", class_="frontpage-link standard-link")
+            most_read_article = most_read_item.find_next("a", class_="frontpage-link")
             if most_read_article:
                 data_point = most_read_article.text.strip()
                 loguru.logger.info(f"Data point: {data_point}")
