@@ -33,6 +33,8 @@ def scrape_data_point():
                 data_point = most_read_article.text.strip()
                 loguru.logger.info(f"Data point: {data_point}")
                 return data_point
+            else:
+                loguru.logger.warning("Most read article not found")
         else:
             loguru.logger.warning("Most read article not found or no most read articles available")
     else:
