@@ -29,7 +29,7 @@ def scrape_data_point():
         most_read_container = soup.find(id="mostRead")
         loguru.logger.info(f"mostRead container: {most_read_container}")
         if most_read_container:
-            most_read_article = most_read_container.find_next("a")
+            most_read_article = most_read_container.find_child("a")
             if most_read_article:
                 data_point = most_read_article.text
                 loguru.logger.info(f"Data point: {data_point}")
