@@ -15,10 +15,10 @@ import loguru
 
 def scrape_data_point():
     """
-    Scrapes the main headline from The Daily Pennsylvanian home page.
+    Scrapes the #1 most read article from The Daily Pennsylvanian home page.
 
     Returns:
-        str: The headline text if found, otherwise an empty string.
+        str: The article text if found, otherwise an empty string.
     """
     req = requests.get("https://www.thedp.com")
     loguru.logger.info(f"Request URL: {req.url}")
@@ -26,8 +26,11 @@ def scrape_data_point():
 
     if req.ok:
         soup = bs4.BeautifulSoup(req.text, "html.parser")
-        target_element = soup.find("a", class_="frontpage-link")
-        data_point = "" if target_element is None else target_element.text
+        # Find the span with id "mostRead"
+        most_read_span = soup.find("span", id="mostRead")
+        # Within this span, find the first a tag within a div with class "most-read-item"
+        target_element = most_read_span.find("div", class_="most-read-item").find("a")
+        data_point = "" if target_element is None else target_element.text.strip()
         loguru.logger.info(f"Data point: {data_point}")
         return data_point
 
