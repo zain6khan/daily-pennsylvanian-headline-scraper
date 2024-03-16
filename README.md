@@ -1,3 +1,11 @@
+# My Scraper Modifications
+
+- Changing the URL to the Sports Section:
+I updated the URL in the requests.get method to "https://www.thedp.com/section/sports". The reason for this is to target the specific section of the website where sports articles are located, rather than the homepage.
+
+- Finding the Target Element with soup.find:
+I used soup.find("h3", class_="standard-link") to find the first occurrence of an <h3> element with the class standard-link. I found that the main sports headlines are marked up with an <h3> tag and have the specified class.
+
 # Basic Git Scraper Template
 
 This template provides a starting point for **git scraping**—the technique of scraping data from websites and automatically committing it to a Git repository using workflows, [coined by Simon Willison](https://simonwillison.net/2020/Oct/9/git-scraping/).
