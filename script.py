@@ -26,23 +26,18 @@ def scrape_data_point():
 
     if req.ok:
         soup = bs4.BeautifulSoup(req.text, "html.parser")
-        most_read_container = soup.find(id="mostRead")
-        if most_read_container:
-            first_div = most_read_container.find("div")  # Find the first div inside the mostRead
-            second_div = first_div.find_all("div", recursive=False)[1]  # Get the second div inside the first div
-            most_read_article = second_div.find("a")  # Find the a tag inside the second div
-            if most_read_article:
-                data_point = most_read_article.text.strip()
-                loguru.logger.info(f"Data point: {data_point}")
-                loguru.logger.info(f"Article href: {most_read_article['href']}")
-                return data_point
-            else:
-                loguru.logger.warning("Most read article not found")
+        most_read_selector = "#mostRead > div:nth-child(1) > div:nth-child(2) > a"
+        most_read_article = soup.select_one(most_read_selector)
+        if most_read_article:
+            data_point = most_read_article.text.strip()
+            loguru.logger.info(f"Data point: {data_point}")
+            return data_point
         else:
-            loguru.logger.warning("Most read container not found or no most read articles available")
+            loguru.logger.warning("Most read article not found or no most read articles available")
     else:
         loguru.logger.warning(f"Failed to retrieve webpage, status code: {req.status_code}")
     return ""
+
     
 if __name__ == "__main__":
 
