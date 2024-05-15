@@ -12,7 +12,6 @@ import bs4
 import requests
 import loguru
 
-
 def scrape_data_point():
     """
     Scrapes the main headline from The Daily Pennsylvanian home page.
